@@ -1,11 +1,19 @@
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import clsx from "clsx";
 import React from "react";
 
 const Show = ({ users }) => {
-    console.log(users);
+    const handleDelete = (id) => {
+        if (window.confirm("Are you sure?")) {
+            router.delete(`/users/${id}/delete`);
+        }
+    };
     return (
         <>
+            <h2>User list</h2>
+            <Link className="btn btn-primary mb-3" href="/users/create">
+                Add new user
+            </Link>
             <table className="table table-bordered">
                 <thead>
                     <tr>
@@ -28,9 +36,12 @@ const Show = ({ users }) => {
                                 </Link>
                             </td>
                             <td>
-                                <Link href={`/users/${user.id}/delete`}>
+                                <button
+                                    className="btn btn-danger"
+                                    onClick={() => handleDelete(user.id)}
+                                >
                                     Delete
-                                </Link>
+                                </button>
                             </td>
                         </tr>
                     ))}

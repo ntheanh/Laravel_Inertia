@@ -1,7 +1,8 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Main = ({ children }) => {
+    const { flash } = usePage().props;
     return (
         <div className="container py-3">
             <div className="row">
@@ -15,11 +16,16 @@ const Main = ({ children }) => {
                             <Link href="/contact">Contact</Link>
                         </li>
                         <li>
-                            <Link href="/user">User</Link>
+                            <Link href="/users">Users</Link>
                         </li>
                     </ul>
                 </div>
-                <div className="col-9">{children}</div>
+                <div className="col-9">
+                    {flash.msg && (
+                        <div class="alert alert-success">{flash.msg}</div>
+                    )}
+                    {children}
+                </div>
             </div>
         </div>
     );
